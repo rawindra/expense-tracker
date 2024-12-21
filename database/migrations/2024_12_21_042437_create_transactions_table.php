@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('type');
             $table->decimal('amount', 8, 2);
-            $table->string('invoice_image')->nullable();
             $table->date('transaction_date');
             $table->timestamps();
         });
