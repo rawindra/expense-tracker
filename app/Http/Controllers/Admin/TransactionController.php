@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,11 +18,10 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
         return Inertia::render('Admin/Transaction/Index', [
-            'transactions' => auth()->user()->transactions()->with('category')->paginate(10)
+            'allTransactions' => auth()->user()->transactions()->with('category')->paginate(10)
         ]);
     }
 
@@ -95,5 +95,19 @@ class TransactionController extends Controller
         $transaction->delete();
 
         return redirect()->route('admin.transactions.index');
+    }
+
+    public function filter(Request $request)
+    {
+        $query = auth()->user()->transactions()->with('category');
+
+        if ($request->filled('type')) {
+            $query->filterType($request->type);
+        }
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->filterDateRange($request->start_date, $request->end_date);
+        }
+
+        return $query->paginate(10);
     }
 }

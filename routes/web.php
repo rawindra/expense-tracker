@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::patch('/transactions/{id}/update', [TransactionController::class, 'update'])->name('transactions.update');
     Route::delete('/transactions/{id}/delete', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 
+    Route::get('/transactions/filter', [TransactionController::class, 'filter'])->name('admin.transactions.filter');
+
 });
 
 require __DIR__ . '/auth.php';

@@ -2,7 +2,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, router } from '@inertiajs/react';
 
 export default function Edit({ transaction, categories }) {
-    console.log("🚀 ~ Edit ~ transaction:", transaction)
     const { data, setData, processing, errors } = useForm({
         category_id: transaction.category_id,
         type: transaction.type,
