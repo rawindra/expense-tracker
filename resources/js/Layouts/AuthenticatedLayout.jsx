@@ -30,6 +30,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('admin.categories.index')}
+                                    active={route().current('admin.categories.index')}
+                                >
+                                    Categories
+                                </NavLink>
                             </div>
                         </div>
 
@@ -134,6 +140,12 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.categories.index')}
+                            active={route().current('admin.categories.index')}
+                        >
+                            Categories
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -170,7 +182,18 @@ export default function AuthenticatedLayout({ header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+
+                <div className="py-12">
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                            <div className="p-6">
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }
