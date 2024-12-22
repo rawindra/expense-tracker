@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
     Route::get('/transactions/filter', [TransactionController::class, 'filter'])->name('admin.transactions.filter');
 
+    Route::get('/transactions/chart-data', [TransactionController::class, 'chartData']);
+
 });
 
 require __DIR__ . '/auth.php';

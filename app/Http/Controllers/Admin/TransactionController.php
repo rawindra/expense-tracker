@@ -110,4 +110,22 @@ class TransactionController extends Controller
 
         return $query->paginate(10);
     }
+
+    public function chartData(Request $request)
+    {
+        $transactions = auth()->user()->transactions()->filterDateRange($request->start_date, $request->end_date)->get();
+
+        $incomeExpense = $transactions->groupBy('type')->map(function ($group) {
+            return $group->sum('amount');
+        });
+
+        $category = $transactions->groupBy('category.name')->map(function ($group) {
+            return $group->sum('amount');
+        });
+
+        return response()->json([
+            'income_expense' => $incomeExpense,
+            'category' => $category,
+        ]);
+    }
 }
